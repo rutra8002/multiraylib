@@ -1,6 +1,6 @@
 import socket
 import threading
-from server.client_handler import handle_client
+from client_handler import handle_client
 from ui import ServerUI
 
 class Server:
