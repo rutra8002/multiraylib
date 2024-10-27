@@ -8,6 +8,7 @@ class Server:
         self.port = port
         self.clients = []
         self.players_positions = {}
+        self.players_inputs = {}
         self.logs = []
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind((self.host, self.port))
@@ -29,12 +30,15 @@ class Server:
     def get_players_positions(self):
         return self.players_positions
 
+    def get_players_inputs(self):
+        return self.players_inputs
+
     def get_logs(self):
         return "\n".join(self.logs)
 
     def update_player_position(self, player_id, inputs):
         if player_id not in self.players_positions:
-            self.players_positions[player_id] = [100, 100]  # Default position
+            self.players_positions[player_id] = [100, 100]
 
         x, y = self.players_positions[player_id]
         for input in inputs:
@@ -48,6 +52,7 @@ class Server:
                 y += 5
 
         self.players_positions[player_id] = (x, y)
+        self.players_inputs[player_id] = inputs
         self.broadcast_positions()
 
     def broadcast_positions(self):
