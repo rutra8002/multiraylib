@@ -13,7 +13,6 @@ class Game:
 
         while not pr.window_should_close():
             self.handle_input()
-            self.network.send_data(f"{id(self.network.client_socket)},{self.player_pos[0]},{self.player_pos[1]}")
             self.render()
 
         pr.close_window()
@@ -21,19 +20,22 @@ class Game:
         receive_thread.join()
 
     def handle_input(self):
+        input_data = []
         if pr.is_key_down(pr.KeyboardKey.KEY_RIGHT):
-            self.player_pos[0] += 5
+            input_data.append("RIGHT")
         if pr.is_key_down(pr.KeyboardKey.KEY_LEFT):
-            self.player_pos[0] -= 5
+            input_data.append("LEFT")
         if pr.is_key_down(pr.KeyboardKey.KEY_UP):
-            self.player_pos[1] -= 5
+            input_data.append("UP")
         if pr.is_key_down(pr.KeyboardKey.KEY_DOWN):
-            self.player_pos[1] += 5
+            input_data.append("DOWN")
+
+        if input_data:
+            self.network.send_data(f"{id(self.network.client_socket)},{','.join(input_data)}")
 
     def render(self):
         pr.begin_drawing()
         pr.clear_background(pr.RAYWHITE)
-        pr.draw_rectangle(self.player_pos[0], self.player_pos[1], 50, 50, pr.RED)
         for pos in self.network.players.values():
             pr.draw_rectangle(pos[0], pos[1], 50, 50, pr.BLUE)
         pr.end_drawing()
