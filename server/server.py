@@ -63,3 +63,7 @@ class Server:
             except:
                 self.clients.remove(client)
                 client.close()
+
+if __name__ == "__main__":
+    server = Server()
+    server.start()
