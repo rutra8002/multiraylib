@@ -31,7 +31,7 @@ class ServerUI(QMainWindow):
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_ui)
-        self.timer.start(1000)
+        self.timer.start(10)
 
     def init_players_tab(self):
         layout = QVBoxLayout()
