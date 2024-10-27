@@ -11,6 +11,9 @@ class Game:
 
         receive_thread = self.network.start_threads()
 
+        input_data = []
+        self.network.send_data(f"{id(self.network.client_socket)},{','.join(input_data)}")
+
         while not pr.window_should_close():
             self.handle_input()
             self.render()
