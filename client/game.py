@@ -24,13 +24,13 @@ class Game:
 
     def handle_input(self):
         input_data = []
-        if pr.is_key_down(pr.KeyboardKey.KEY_RIGHT):
+        if pr.is_key_down(pr.KeyboardKey.KEY_RIGHT) or pr.is_key_down(pr.KeyboardKey.KEY_D):
             input_data.append("RIGHT")
-        if pr.is_key_down(pr.KeyboardKey.KEY_LEFT):
+        if pr.is_key_down(pr.KeyboardKey.KEY_LEFT) or pr.is_key_down(pr.KeyboardKey.KEY_A):
             input_data.append("LEFT")
-        if pr.is_key_down(pr.KeyboardKey.KEY_UP):
+        if pr.is_key_down(pr.KeyboardKey.KEY_UP) or pr.is_key_down(pr.KeyboardKey.KEY_W):
             input_data.append("UP")
-        if pr.is_key_down(pr.KeyboardKey.KEY_DOWN):
+        if pr.is_key_down(pr.KeyboardKey.KEY_DOWN) or pr.is_key_down(pr.KeyboardKey.KEY_S):
             input_data.append("DOWN")
 
         if input_data:
