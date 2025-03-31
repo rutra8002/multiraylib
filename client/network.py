@@ -14,9 +14,23 @@ class Network:
             try:
                 data = self.client_socket.recv(1024).decode('utf-8')
                 if data:
+                    # Split by comma and process the data in triplets
                     parts = data.split(',')
-                    if len(parts) % 3 == 0:  # Ensure the data is in the expected format
-                        self.players = {parts[i]: (int(parts[i+1]), int(parts[i+2])) for i in range(0, len(parts), 3)}
+                    temp_players = {}
+
+                    # Process data in chunks of 3 (player_id, x, y)
+                    for i in range(0, len(parts), 3):
+                        if i + 2 < len(parts):  # Make sure we have all 3 elements
+                            try:
+                                player_id = parts[i]
+                                x = int(parts[i + 1])
+                                y = int(parts[i + 2])
+                                temp_players[player_id] = (x, y)
+                            except (ValueError, IndexError):
+                                pass  # Skip invalid data
+
+                    if temp_players:
+                        self.players = temp_players
                     else:
                         print(f"Unexpected data format: {data}")
             except OSError:
